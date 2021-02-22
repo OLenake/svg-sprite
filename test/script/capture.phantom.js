@@ -1,6 +1,7 @@
 'use strict';
 
-/* jshint -W117 */
+/* eslint-env phantomjs */
+/* eslint-disable no-var, prefer-arrow-callback */
 
 var system				= require('system');
 
