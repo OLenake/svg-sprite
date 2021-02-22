@@ -1,7 +1,7 @@
 'use strict';
 
-/* jshint -W117 */
-/* jshint -W030 */
+// TODO fix these
+/* eslint-disable no-unused-expressions */
 
 /**
  * svg-sprite is a Node.js module for creating SVG sprites
