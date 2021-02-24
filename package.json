@@ -133,7 +133,6 @@
       "unicorn/no-nested-ternary": "off",
       "unicorn/prefer-includes": "off",
       "unicorn/prefer-number-properties": "off",
-      "unicorn/prefer-optional-catch-binding": "off",
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-reflect-apply": "off",
       "unicorn/prefer-regexp-test": "off",
