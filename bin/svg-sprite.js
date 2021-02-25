@@ -279,7 +279,7 @@ if ('variables' in config) {
 
 const spriter = new SVGSpriter(config);
 _.reduce(argv._, (f, g) => {
-    return f.concat(glob.sync(g));
+    return [...f, ...glob.sync(g)];
 }, []).forEach(file => {
     let basename = file;
     file = path.resolve(file);
