@@ -58,7 +58,7 @@ function addOption(name, option) {
         yargs = yargs.describe(alias, option.description);
 
         if ('default' in option) {
-            const template = (name.substr(-9) === '-template');
+            const template = name.endsWith('-template');
             const def = template ? path.resolve(path.dirname(__dirname), option.default) : option.default;
             yargs = yargs.default(alias, def);
 
