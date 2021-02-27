@@ -62,7 +62,7 @@ function addOption(name, option) {
             const def = template ? path.resolve(path.dirname(__dirname), option.default) : option.default;
             yargs = yargs.default(alias, def);
 
-            if ((option.default === true) || (option.default === false)) {
+            if (option.default === true || option.default === false) {
                 yargs = yargs.boolean(name);
             }
         } else if (option.required) {
@@ -180,7 +180,7 @@ if (argv.config) {
         }
 
         // Expand shorthand mode definitions
-        if (('mode' in externalConfig) && _.isObject(externalConfig.mode)) {
+        if ('mode' in externalConfig && _.isObject(externalConfig.mode)) {
             for (const emode in externalConfig.mode) {
                 if (externalConfig.mode[emode] === true) {
                     externalConfig.mode[emode] = JSONConfig.mode[emode] = {
@@ -199,7 +199,7 @@ if (argv.config) {
 }
 
 // Refine particular config options
-config.shape.spacing.padding = (String(config.shape.spacing.padding)).trim();
+config.shape.spacing.padding = String(config.shape.spacing.padding).trim();
 config.shape.spacing.padding = config.shape.spacing.padding.length ?
     config.shape.spacing.padding.split(',').map(dim => parseFloat(dim || 0)) :
     [];
@@ -216,7 +216,7 @@ if (config.svg.rootAttributes && typeof config.svg.rootAttributes === 'string') 
 
 // Expand transformation options
 if (typeof config.shape.transform === 'string') {
-    const transform = (String(config.shape.transform)).trim();
+    const transform = String(config.shape.transform).trim();
     config.shape.transform = [];
     (transform.length ? transform.split(',').map(trans => String(trans).trim()) : [])
         .forEach(function(transform) {
@@ -245,7 +245,7 @@ if (typeof config.shape.transform === 'string') {
     // Remove excessive render types
     ['css', 'scss', 'less', 'styl'].forEach(function(render) {
         const arg = mode + '-render-' + render;
-        if ((render in this) && !argv[arg] && (!(mode in JSONConfig.mode) || !('render' in JSONConfig.mode[mode]) || !(render in JSONConfig.mode[mode].render))) {
+        if (render in this && !argv[arg] && (!(mode in JSONConfig.mode) || !('render' in JSONConfig.mode[mode]) || !(render in JSONConfig.mode[mode].render))) {
             delete this[render];
         }
     }, this[mode].render);
@@ -258,14 +258,14 @@ if (typeof config.shape.transform === 'string') {
 // Remove excessive example options
 for (const mode in config.mode) {
     const example = mode + '-example';
-    if (!argv[example] && (!(mode in JSONConfig.mode) || !('example' in JSONConfig.mode[mode])) && ('example' in config.mode[mode])) {
+    if (!argv[example] && (!(mode in JSONConfig.mode) || !('example' in JSONConfig.mode[mode])) && 'example' in config.mode[mode]) {
         delete config.mode[mode].example;
     }
 }
 
 // Read & parse Mustache variable JSON file
 if ('variables' in config) {
-    let variables = (String(config.variables)).trim();
+    let variables = String(config.variables).trim();
     delete config.variables;
     variables = variables.length ? path.resolve(variables) : null;
     if (variables && fs.existsSync(variables)) {
@@ -289,7 +289,7 @@ _.reduce(argv._, (f, g) => [...f, ...glob.sync(g)], [])
             basename = path.basename(file);
         } else {
             const basepos = basename.lastIndexOf('./');
-            basename = (basepos >= 0) ? basename.substr(basepos + 2) : path.basename(file);
+            basename = basepos >= 0 ? basename.substr(basepos + 2) : path.basename(file);
         }
 
         spriter.add(file, basename, fs.readFileSync(file));

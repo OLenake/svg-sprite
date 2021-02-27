@@ -110,7 +110,7 @@ function capturePhantom(src, target, cb) {
         if (err) {
             cb(err);
         } else if (stdout.length > 0) {
-            cb((stdout.toString().trim() === 'success') ? null : new Error('PhantomJS couldn\'t capture "' + src + '"'));
+            cb(stdout.toString().trim() === 'success' ? null : new Error('PhantomJS couldn\'t capture "' + src + '"'));
         } else if (stderr.length > 0) {
             cb(new Error(stderr.toString().trim()));
         } else {
