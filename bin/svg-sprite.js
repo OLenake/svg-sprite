@@ -278,22 +278,22 @@ if ('variables' in config) {
 }
 
 const spriter = new SVGSpriter(config);
-_.reduce(argv._, (f, g) => {
-    return [...f, ...glob.sync(g)];
-}, []).forEach(file => {
-    let basename = file;
-    file = path.resolve(file);
-    const stat = fs.lstatSync(file);
-    if (stat.isSymbolicLink()) {
-        file = fs.readlinkSync(file);
-        basename = path.basename(file);
-    } else {
-        const basepos = basename.lastIndexOf('./');
-        basename = (basepos >= 0) ? basename.substr(basepos + 2) : path.basename(file);
-    }
 
-    spriter.add(file, basename, fs.readFileSync(file));
-});
+_.reduce(argv._, (f, g) => [...f, ...glob.sync(g)], [])
+    .forEach(file => {
+        let basename = file;
+        file = path.resolve(file);
+        const stat = fs.lstatSync(file);
+        if (stat.isSymbolicLink()) {
+            file = fs.readlinkSync(file);
+            basename = path.basename(file);
+        } else {
+            const basepos = basename.lastIndexOf('./');
+            basename = (basepos >= 0) ? basename.substr(basepos + 2) : path.basename(file);
+        }
+
+        spriter.add(file, basename, fs.readFileSync(file));
+    });
 
 spriter.compile((error, result /*, data*/) => {
     if (error) {
